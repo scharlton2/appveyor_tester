@@ -59,6 +59,7 @@ time.sleep(30.0)
 capture_and_push_artifact("04-vc2017_vcredist_x64.png")
 
 # close dialog
+# vc2015CloseButton has a grey border and vc2017CloseButton has a blue border
 location = pyautogui.locateCenterOnScreen('vc2017CloseButton-2012.png')
 while location is None:
     time.sleep(1)

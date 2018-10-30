@@ -58,24 +58,12 @@ capture_and_push_artifact("03-vc2015_vcredist_x64.png")
 time.sleep(30.0)
 capture_and_push_artifact("04-vc2015_vcredist_x64.png")
 
-#{
-# tab off log file
-time.sleep(20)
-capture_and_push_artifact("04.1-vc2015_vcredist_x64.png")
-pyautogui.press('tab')
-time.sleep(1)
-location = pyautogui.locateCenterOnScreen('vc2017CloseButton-2012.png')
-print(location)
-capture_and_push_artifact("04.2-vc2015_vcredist_x64.png")
-pyautogui.hotkey('shift', 'tab')
-time.sleep(1)
-#}
-
 # close dialog
-location = pyautogui.locateCenterOnScreen('closeButton-2012.png')
+# vc2015CloseButton has a grey border and vc2017CloseButton has a blue border
+location = pyautogui.locateCenterOnScreen('vc2015CloseButton-2012.png')
 while location is None:
     time.sleep(1)
-    location = pyautogui.locateCenterOnScreen('closeButton-2012.png')
+    location = pyautogui.locateCenterOnScreen('vc2015CloseButton-2012.png')
 pyautogui.moveTo(location)  # this might not be necessary (needs further testing - at least for iric installers)
 pyautogui.click(location)
 time.sleep(0.5)

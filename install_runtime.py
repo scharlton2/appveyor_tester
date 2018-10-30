@@ -39,27 +39,28 @@ subprocess.Popen("prod_src/packages/runtime/data/vc2015_vcredist_x64.exe /log vc
 location = pyautogui.locateOnScreen('readyDialog-2012.png')
 while location is None:
     location = pyautogui.locateOnScreen('readyDialog-2012.png')
-    time.sleep(1.0)
-capture_and_push_artifact("01-vcredist_x64.png")
+    time.sleep(20)
+    capture_and_push_artifact("01-vcredist_x64.png")
+capture_and_push_artifact("02-vcredist_x64.png")
 
 # agree checkbox
 pyautogui.hotkey('alt', 'a')
 time.sleep(0.5)
-capture_and_push_artifact("02-vcredist_x64.png")
+capture_and_push_artifact("03-vcredist_x64.png")
 
 # install button
 pyautogui.hotkey('alt', 'i')
 time.sleep(0.5)
-capture_and_push_artifact("03-vcredist_x64.png")
+capture_and_push_artifact("04-vcredist_x64.png")
 
 # wait for finish
 time.sleep(30.0)
-capture_and_push_artifact("04-vcredist_x64.png")
+capture_and_push_artifact("05-vcredist_x64.png")
 os.system("dir")
 
 
 # open log file
 time.sleep(10.0)
-capture_and_push_artifact("05-vcredist_x64.png")
+capture_and_push_artifact("06-vcredist_x64.png")
 if os.environ.get('APPVEYOR') is not None:
     subprocess.call("appveyor PushArtifact " + "vc2015_vcredist_x64.log")

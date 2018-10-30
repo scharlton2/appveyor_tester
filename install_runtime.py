@@ -59,7 +59,6 @@ os.system("dir")
 
 
 # open log file
-##pyautogui.typewrite(['space'], interval=type_interval)
 time.sleep(10.0)
 capture_and_push_artifact("05-vcredist_x64.png")
 if os.environ.get('APPVEYOR') is not None:

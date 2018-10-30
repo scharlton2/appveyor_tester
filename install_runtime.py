@@ -59,18 +59,19 @@ capture_and_push_artifact("03-vcredist_x64.png")
 # wait for finish
 time.sleep(30.0)
 capture_and_push_artifact("04-vcredist_x64.png")
-os.system("dir")
+##os.system("dir")
 
-# open log file
-pyautogui.press('space')
-time.sleep(10.0)
-os.system("dir")
-os.system("type vc2015_vcredist_x64.log")
-os.system("type vc2015_vcredist_x64.log > type.log")
+# close dialog
+location = pyautogui.locateCenterOnScreen('closeButton-2012.png')
+while location is None:
+    time.sleep(1)
+    location = pyautogui.locateCenterOnScreen('closeButton-2012.png')
+pyautogui.moveTo(location)  # this might not be necessary (needs further testing - at least for iric installers)
+pyautogui.click(location)
+time.sleep(0.5)
 capture_and_push_artifact("05-vcredist_x64.png")
-time.sleep(30.0)
-capture_and_push_artifact("06-vcredist_x64.png")
+
+# push log
+##os.system("dir")
 if os.environ.get('APPVEYOR') is not None:
-    subprocess.call("appveyor PushArtifact " + "type.log")
-time.sleep(30.0)
-capture_and_push_artifact("07-vcredist_x64.png")
+    subprocess.call("appveyor PushArtifact " + "vc2015_vcredist_x64.log")

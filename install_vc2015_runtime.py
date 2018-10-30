@@ -1,4 +1,4 @@
-# run_iric_install.py
+# install_vc2015_runtime.py
 
 import pyautogui, sys, time
 import subprocess
@@ -36,7 +36,6 @@ print("Screen resolution: {}x{}".format(screenWidth, screenHeight))
 subprocess.Popen("prod_src/packages/runtime/data/vc2015_vcredist_x64.exe /log vc2015_vcredist_x64.log")
 
 # wait until ready
-##location = pyautogui.locateOnScreen('readyDialog-2012.png')
 location = pyautogui.locateCenterOnScreen('agreeCheckbox-2012.png')
 while location is None:
     time.sleep(1)

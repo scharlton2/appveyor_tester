@@ -1,0 +1,52 @@
+version: '{branch}-{build}'
+
+# This allows testing of GUI
+# See https://help.appveyor.com/discussions/questions/678-gui-unit-testing-in-appveyor
+# and https://twitter.com/appveyor/status/525658624593375236
+os: unstable
+
+## before_build:
+##   - ps: '[xml]$prod = Get-Content .\prod_src\packages\gui.prepost\data\definition.xml'
+##   - ps: '[xml]$dev = Get-Content .\dev_src\packages\gui.prepost\data\definition.xml'
+##   - ps: '[xml]$yasu = Get-Content .\yasu_src\packages\gui.prepost\data\definition.xml'
+##   - ps: $Env:PROD_SHA1=$prod.GuiDefinition.'github-sha1'.Substring(0,8)
+##   - ps: $Env:DEV_SHA1=$dev.GuiDefinition.'github-sha1'.Substring(0,8)
+##   - ps: $Env:YASU_SHA1=$yasu.GuiDefinition.'github-sha1'.Substring(0,8)
+##   - ps: $Env:PROD_RELEASE=$prod.GuiDefinition.'release'.Split('.')[0].SubString(2,2) + $prod.GuiDefinition.'release'.Split('.')[1] + $prod.GuiDefinition.'release'.Split('.')[2]
+##   - ps: $Env:DEV_RELEASE=$dev.GuiDefinition.'release'.Split('.')[0].SubString(2,2)   + $dev.GuiDefinition.'release'.Split('.')[1]  + $dev.GuiDefinition.'release'.Split('.')[2]
+##   - ps: $Env:YASU_RELEASE=$yasu.GuiDefinition.'release'.Split('.')[0].SubString(2,2) + $yasu.GuiDefinition.'release'.Split('.')[1] + $yasu.GuiDefinition.'release'.Split('.')[2]
+
+build_script:
+  - echo "In build_script"
+  ## C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator --offline-only -c prod_src/config/config.xml -p prod_src/packages iRIC_Installer_prod_%PROD_RELEASE%_%PROD_SHA1%.exe
+  ## appveyor PushArtifact iRIC_Installer_prod_%PROD_RELEASE%_%PROD_SHA1%.exe
+  # C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator --offline-only -c dev_src/config/config.xml  -p dev_src/packages  iRIC_Installer_dev_%DEV_RELEASE%_%DEV_SHA1%.exe
+  # appveyor PushArtifact iRIC_Installer_dev_%DEV_RELEASE%_%DEV_SHA1%.exe
+  # C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator --offline-only -c yasu_src/config/config.xml -p yasu_src/packages iRIC_Installer_yasu_%YASU_RELEASE%_%YASU_SHA1%.exe
+  # appveyor PushArtifact iRIC_Installer_yasu_%YASU_RELEASE%_%YASU_SHA1%.exe
+  # build versions with no runtime libraries
+  # rd /s /q prod_src\packages\runtime
+  # rd /s /q dev_src\packages\runtime
+  # rd /s /q yasu_src\packages\runtime
+  # C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator --offline-only -c prod_src/config/config.xml -p prod_src/packages iRIC_Installer_No_Runtime_prod_%PROD_RELEASE%_%PROD_SHA1%.exe
+  # C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator --offline-only -c dev_src/config/config.xml  -p dev_src/packages  iRIC_Installer_No_Runtime_dev_%DEV_RELEASE%_%DEV_SHA1%.exe
+  # C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator --offline-only -c yasu_src/config/config.xml -p yasu_src/packages iRIC_Installer_No_Runtime_yasu_%YASU_RELEASE%_%YASU_SHA1%.exe
+
+before_test:
+  # list what's installed
+  # wmic PRODUCT GET Name,Version
+  # install pyautogui
+  - py -m pip install pyautogui
+
+test_script:
+  - py install_runtime.py
+  # py run_iric_install.py
+
+artifacts:
+  ## path: iRIC_Installer_prod_$(PROD_RELEASE)_$(PROD_SHA1).exe
+  # path: iRIC_Installer_dev_$(DEV_RELEASE)_$(DEV_SHA1).exe
+  # path: iRIC_Installer_yasu_$(YASU_RELEASE)_$(YASU_SHA1).exe
+  # path: iRIC_Installer_No_Runtime_prod_$(PROD_RELEASE)_$(PROD_SHA1).exe
+  # path: iRIC_Installer_No_Runtime_dev_$(DEV_RELEASE)_$(DEV_SHA1).exe
+  # path: iRIC_Installer_No_Runtime_yasu_$(YASU_RELEASE)_$(YASU_SHA1).exe
+  ## path: '*.png'

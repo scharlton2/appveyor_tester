@@ -26,7 +26,7 @@ pyautogui.moveTo(1, 1)
 # minimize everything
 pyautogui.hotkey('win', 'm')
 time.sleep(3.0)
-capture_and_push_artifact("00-vcredist_x64.png")
+capture_and_push_artifact("00-vc2015_vcredist_x64.png")
 
 # verify resolution
 screenWidth, screenHeight = pyautogui.size()
@@ -41,25 +41,23 @@ location = pyautogui.locateCenterOnScreen('agreeCheckbox-2012.png')
 while location is None:
     time.sleep(1)
     location = pyautogui.locateCenterOnScreen('agreeCheckbox-2012.png')
-capture_and_push_artifact("01-vcredist_x64.png")
-
+capture_and_push_artifact("01-vc2015_vcredist_x64.png")
 
 # agree checkbox
-###pyautogui.hotkey('alt', 'a')
+# Note: its better to click on checkbox since the dialog sometimes doesn't have the focus
 pyautogui.moveTo(location)  # this might not be necessary (needs further testing - at least for iric installers)
 pyautogui.click(location)
 time.sleep(0.5)
-capture_and_push_artifact("02-vcredist_x64.png")
+capture_and_push_artifact("02-vc2015_vcredist_x64.png")
 
 # install button
 pyautogui.hotkey('alt', 'i')
 time.sleep(0.5)
-capture_and_push_artifact("03-vcredist_x64.png")
+capture_and_push_artifact("03-vc2015_vcredist_x64.png")
 
 # wait for finish
 time.sleep(30.0)
-capture_and_push_artifact("04-vcredist_x64.png")
-##os.system("dir")
+capture_and_push_artifact("04-vc2015_vcredist_x64.png")
 
 # close dialog
 location = pyautogui.locateCenterOnScreen('closeButton-2012.png')
@@ -69,9 +67,8 @@ while location is None:
 pyautogui.moveTo(location)  # this might not be necessary (needs further testing - at least for iric installers)
 pyautogui.click(location)
 time.sleep(0.5)
-capture_and_push_artifact("05-vcredist_x64.png")
+capture_and_push_artifact("05-vc2015_vcredist_x64.png")
 
 # push log
-##os.system("dir")
 if os.environ.get('APPVEYOR') is not None:
     subprocess.call("appveyor PushArtifact " + "vc2015_vcredist_x64.log")

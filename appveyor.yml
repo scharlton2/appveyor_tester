@@ -39,7 +39,7 @@ before_test:
   - py -m pip install pyautogui
 
 test_script:
-  - py install_runtime.py
+  - py install_vc2015_runtime.py
   # py run_iric_install.py
 
 artifacts:

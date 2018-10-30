@@ -60,10 +60,10 @@ time.sleep(30.0)
 capture_and_push_artifact("04-vc2017_vcredist_x64.png")
 
 # close dialog
-location = pyautogui.locateCenterOnScreen('closeButton-2012.png')
+location = pyautogui.locateCenterOnScreen('vc2017CloseButton-2012.png')
 while location is None:
     time.sleep(1)
-    location = pyautogui.locateCenterOnScreen('closeButton-2012.png')
+    location = pyautogui.locateCenterOnScreen('vc2017CloseButton-2012.png')
 pyautogui.moveTo(location)  # this might not be necessary (needs further testing - at least for iric installers)
 pyautogui.click(location)
 time.sleep(0.5)

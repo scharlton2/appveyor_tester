@@ -61,9 +61,10 @@ time.sleep(30.0)
 capture_and_push_artifact("04-vcredist_x64.png")
 os.system("dir")
 
-
 # open log file
+pyautogui.press('space')
 time.sleep(10.0)
+os.system("dir")
 capture_and_push_artifact("05-vcredist_x64.png")
 if os.environ.get('APPVEYOR') is not None:
     subprocess.call("appveyor PushArtifact " + "vc2015_vcredist_x64.log")

@@ -34,12 +34,12 @@ build_script:
 
 before_test:
   # list what's installed
-  # wmic PRODUCT GET Name,Version
+  - wmic PRODUCT GET Name,Version
   # install pyautogui
   - py -m pip install pyautogui
 
 test_script:
-  # py install_vc2015_runtime.py
+  - py install_vc2015_runtime.py
   - py install_vc2017_runtime.py
   # py run_iric_install.py
 

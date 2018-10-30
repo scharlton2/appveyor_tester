@@ -1,6 +1,5 @@
 # install_vc2017_runtime.py
 
-
 import pyautogui, sys, time
 import subprocess
 import os

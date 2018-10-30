@@ -58,6 +58,15 @@ capture_and_push_artifact("03-vc2015_vcredist_x64.png")
 time.sleep(30.0)
 capture_and_push_artifact("04-vc2015_vcredist_x64.png")
 
+#{
+# tab off log file
+time.sleep(20)
+capture_and_push_artifact("04.1-vc2015_vcredist_x64.png")
+pyautogui.press('tab')
+location = pyautogui.locateCenterOnScreen('vc2017CloseButton-2012.png')
+print(location)
+#}
+
 # close dialog
 location = pyautogui.locateCenterOnScreen('closeButton-2012.png')
 while location is None:

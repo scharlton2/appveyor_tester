@@ -17,7 +17,7 @@ os: unstable
 ##   - ps: $Env:YASU_RELEASE=$yasu.GuiDefinition.'release'.Split('.')[0].SubString(2,2) + $yasu.GuiDefinition.'release'.Split('.')[1] + $yasu.GuiDefinition.'release'.Split('.')[2]
 
 build_script:
-  - echo "In build_script"
+  - dir C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator.exe
   ## C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator --offline-only -c prod_src/config/config.xml -p prod_src/packages iRIC_Installer_prod_%PROD_RELEASE%_%PROD_SHA1%.exe
   ## appveyor PushArtifact iRIC_Installer_prod_%PROD_RELEASE%_%PROD_SHA1%.exe
   # C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator --offline-only -c dev_src/config/config.xml  -p dev_src/packages  iRIC_Installer_dev_%DEV_RELEASE%_%DEV_SHA1%.exe
@@ -34,7 +34,8 @@ build_script:
 
 before_test:
   # list what's installed
-  - wmic PRODUCT GET Name,Version
+  - ps: wmic PRODUCT GET Name,Version | Out-File Installed.txt
+  - appveyor PushArtifact Installed.txt
   # install pyautogui
   - py -m pip install pyautogui
 

@@ -17,7 +17,8 @@ os: unstable
 ##   - ps: $Env:YASU_RELEASE=$yasu.GuiDefinition.'release'.Split('.')[0].SubString(2,2) + $yasu.GuiDefinition.'release'.Split('.')[1] + $yasu.GuiDefinition.'release'.Split('.')[2]
 
 build_script:
-  - dir C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator.exe
+  - ps: Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA"
+  - REG QUERY HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ /v EnableLUA
   ## C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator --offline-only -c prod_src/config/config.xml -p prod_src/packages iRIC_Installer_prod_%PROD_RELEASE%_%PROD_SHA1%.exe
   ## appveyor PushArtifact iRIC_Installer_prod_%PROD_RELEASE%_%PROD_SHA1%.exe
   # C:\Qt\Tools\QtInstallerFramework\2.0\bin\binarycreator --offline-only -c dev_src/config/config.xml  -p dev_src/packages  iRIC_Installer_dev_%DEV_RELEASE%_%DEV_SHA1%.exe

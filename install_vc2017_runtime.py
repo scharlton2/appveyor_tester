@@ -23,6 +23,8 @@ type_interval = 0.02
 # place mouse on screen to start iRIC (if multiple screens)
 pyautogui.moveTo(1, 1)
 
+sys.exit(0)
+
 # minimize everything
 pyautogui.hotkey('win', 'm')
 time.sleep(3.0)

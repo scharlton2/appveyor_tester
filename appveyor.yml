@@ -34,46 +34,39 @@ before_build:
 
       # Make changes
       Get-Date -Format o | Out-File .\README.md -Encoding utf8 -Append
+
       ####################################################################################
       # Commit the languages changes
       # from https://www.appveyor.com/docs/how-to/git-push/
       ####################################################################################
-      echo "*** before commitandpush check ***"
       if ($CommitAndPush) {
         $access_token = $env:scharlton2_access_token
 
         # Enabling Git credential store
-        echo "*** before credential.helper ***"
         git config --global credential.helper store
         if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
 
         # Adding access token to credential store
-        echo "*** before Add-Content ***"
         Add-Content "$HOME\.git-credentials" "https://$($access_token):x-oauth-basic@github.com`n" -ErrorAction Stop
 
         # Indicate git user name and mail
-        echo "*** before config ***"
         git config --global user.email "iric.appveyor@gmail.com"
         git config --global user.name "iric.appveyor"
         git config --global core.safecrlf false
         if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
 
         # add and commit language files (shouldn't be any new files)
-        echo "*** before commit ***"
-        git commit -am "translate_ts.py by iric.appveyor $env:APPVEYOR_BUILD_VERSION"
+        git commit -am "translate_ts.py by iric.appveyor $env:APPVEYOR_REPO_NAME:$env:APPVEYOR_BUILD_VERSION"
         if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
 
         # push
         if ($branch) {
-          echo "*** before push branch ***"
           git push --set-upstream origin "__$env:APPVEYOR_BUILD_VERSION" 2>&1 | Out-Null
         } else {
-          echo "*** before push ***"
           git push --set-upstream origin $env:APPVEYOR_REPO_BRANCH 2>&1 | Out-Null
         }
         if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
       }
-      echo "***  commitandpush finished ***"
 
 build_script:
   - echo Done

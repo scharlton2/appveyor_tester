@@ -66,7 +66,8 @@ before_build:
           git push --set-upstream origin $env:APPVEYOR_REPO_BRANCH 2>&1 | Out-Null
         }
         if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
-        echo "Needed to avoid error from git push"
+        ##echo "Needed to avoid error from git push"
+        git status
       }
 
 build_script:

@@ -22,7 +22,7 @@ init:
       Get-ChildItem env: | Where-Object { $_.Name -NotMatch "access_token" -and $_.Name -notmatch 'json'}
 
 before_build:
-  - ps: |
+  - pwsh: |
       $CommitAndPush = $true
       $branch = $true
 

@@ -22,6 +22,7 @@ init:
       Get-ChildItem env: | Where-Object { $_.Name -NotMatch "access_token" -and $_.Name -notmatch 'json'}
 
 before_build:
+  # this works for both ps: and pwsh:
   - pwsh: |
       $CommitAndPush = $true
       $branch = $true
@@ -66,6 +67,8 @@ before_build:
           git push --set-upstream origin $env:APPVEYOR_REPO_BRANCH 2>&1 | Out-Null
         }
         if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
+        # These lines are necessary to avoid appveyor considering the output
+        # from git push to be an error
         Write-Output "Status:"
         git status
       }

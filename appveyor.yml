@@ -74,9 +74,6 @@ before_build:
         if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
       }
       echo "***  commitandpush finished ***"
-      throw "FINISHED"
 
 build_script:
-  - qmake -recursive -tp vc
-  - msbuild /nologo /verbosity:minimal /maxCpuCount /target:iricGdPolyline /p:Configuration=%Configuration% src.sln
-  - msbuild /nologo /verbosity:minimal /maxCpuCount /p:Configuration=%Configuration% src.sln
+  - echo Done
